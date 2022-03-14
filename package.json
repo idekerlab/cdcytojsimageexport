@@ -1,0 +1,21 @@
+{
+  "name": "cdcytojsimageexport",
+  "version": "0.0.1",
+  "description": "Runs Cytoscape JS image export on command line",
+  "main": "bin/index.js",
+  "bin": {
+    "cdcytojsimageexport": "./bin/index.js"
+  },
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "cytoscape": "^3.20.0",
+    "cytoscape-cx2js": "^0.6.6",
+    "cytosnap": "^3.1.0"
+  },
+  "scripts": {
+    "test": "echo \"no tests\"",
+    "dockerbuild": "docker build --no-cache -t coleslawndex/cdcytojsimageexport:0.0.1 -f docker/Dockerfile ."
+  },
+  "author": "Christopher Churas",
+  "license": "MIT"
+}
