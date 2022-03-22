@@ -7,7 +7,6 @@ const { version } = require('../package.json');
 const fs = require('fs');
 
 var cytosnap = require('cytosnap');
-
 var cytoscape = require('cytoscape');
 
 const { CxToJs, CyNetworkUtils } = require('cytoscape-cx2js');
@@ -24,8 +23,6 @@ parser.add_argument('--height', {help: 'Height of exported image', type: 'int', 
 
 
 var args = parser.parse_args();
-
-var layout = args.layout;
 
 // read CX file
 var content = fs.readFileSync(args.input);
@@ -45,6 +42,11 @@ var attributeNameMap = {};
 var eles = cy.add(cx2Js.cyElementsFromNiceCX(niceCX, attributeNameMap));
 var style = cx2Js.cyStyleFromNiceCX(niceCX, attributeNameMap)
 var layout = cx2Js.getDefaultLayout();
+if (layout !== undefined){
+  layout.fit = true;
+}
+
+
 var nodes = cy.filter('node');
 var num_nodes = nodes.length;
 var node_size = 75.0
@@ -53,7 +55,7 @@ var box_size = Math.sqrt(node_size*node_size*num_nodes);
 if (box_size < 500.0){
   box_size = 500;
 }
-cy.fit(eles, 25);
+
 var snap = cytosnap({
   args: ['--no-sandbox', '--window-size=' + args.width + ',' + args.height]
 })
@@ -67,26 +69,11 @@ snap.start().then(function(){
     elements: cy.elements().jsons(),
 
     // TODO: Need to use preset layout and get coordinates
-    layout: { // http://js.cytoscape.org/#init-opts/layout
-      name: 'grid' // you may reference a `cytoscape.use()`d extension name here
-   
-   },
-   layout: layout,
-//    style: [ // http://js.cytoscape.org/#style
-//      {
- //       selector: 'node',
-  //      style: {
-  //        'background-color': 'red'
-  //      }
-  //    },
-  //    {
-  //      selector: 'edge',
-  //      style: {
-  //        'line-color': 'red'
-   //     }
-    //  }
-   // ],
-    // TODO: Need to get style properly loaded
+    //layout: { // http://js.cytoscape.org/#init-opts/layout
+    //  name: 'grid',  // you may reference a `cytoscape.use()`d extension name here
+    //  fit: true
+   //},
+    layout: layout,
     style: style,
     resolvesTo: 'base64uri',
     format: 'png',

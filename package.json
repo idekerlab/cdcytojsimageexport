@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "echo \"no tests\"",
-    "dockerbuild": "docker build --no-cache -t coleslawndex/cdcytojsimageexport:0.0.1 -f docker/Dockerfile ."
+    "dockerbuildnocache": "docker build --no-cache -t coleslawndex/cdcytojsimageexport:0.0.1 -f docker/Dockerfile .",
+    "dockerbuild": "docker build -t coleslawndex/cdcytojsimageexport:0.0.1 -f docker/Dockerfile ."
   },
   "author": "Christopher Churas",
   "license": "MIT"
