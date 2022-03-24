@@ -75,7 +75,7 @@ snap.start().then(function(){
    //},
     layout: layout,
     style: style,
-    resolvesTo: 'base64uri',
+    resolvesTo: 'base64',
     format: 'png',
     width: args.width,
     height: args.height,
@@ -83,7 +83,8 @@ snap.start().then(function(){
   });
 }).then(function( img ){
   // do whatever you want with img
-  console.log( img );
+  const buffer = Buffer.from(img, "base64");
+  process.stdout.write( buffer );
 
   snap.stop().then(function(){ // promise resolved on stop
     //console.log('chained stop promise');
